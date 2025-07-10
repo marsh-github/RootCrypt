@@ -50,7 +50,7 @@ and Gaussian perturbations. NELP suffered from:
 
 **NERP** overcomes these by adopting:
 
-- Fixed-width integer rings (e.g., ℤ₂¹⁶ⁿ)  
+- Fixed-width integer rings (e.g., $\mathbb{Z}_{2^{16}}^n$)  
 - Platform-independent modular arithmetic  
 - 128-bit seed entropy  
 - Deterministic nonlinear mappings  
@@ -60,15 +60,13 @@ and Gaussian perturbations. NELP suffered from:
 
 3. ## Defining the NERP Problem
 
-Let **fₛ**: ℤqⁿ → ℤqⁿ be a nonlinear ring function parameterized by seed *s*. The public key publishes noisy projections:
+Let $f_s: \mathbb{Z}_q^n \to \mathbb{Z}_q^n$ be a nonlinear ring function parameterized by seed $s$. The public key publishes noisy projections:
 
-> Pᵢ = fₛ(xᵢ) + ηᵢ  
+Let $P_i = f_s(x_i) + \eta_i$ be noisy projections, where $\eta_i$ is small random noise. The challenge is to recover any preimage $x' \approx x_i$
+that maps within noise tolerance of $P_i$, without knowledge of $x_i$ or $s$. Security relies on:
 
-where xᵢ ∈ ℤqⁿ and ηᵢ is small discrete noise. The challenge is to recover any preimage x′ that maps within noise tolerance of Pᵢ,  
-without knowledge of *s*. Security relies on:
-
-1. Intractability of inverting fₛ  
-2. Indistinguishability of fₛ(x) + η from uniform over ℤqⁿ  
+1. Intractability of inverting $f_s$  
+2. Indistinguishability of $f_s(x) + \eta$ from random over $\mathbb{Z}_q^n$
 
 These assumptions, while plausible, are not yet reducible to a standard problem like LWE or Ring-LWE.
 
@@ -78,12 +76,12 @@ These assumptions, while plausible, are not yet reducible to a standard problem 
 
 ### KEM: NERP-Based Key Encapsulation
 
-1. **KeyGen:** Sample x ∈ ℤqⁿ, compute P = fₛ(x) + η, publish P.  
-2. **Encapsulation:** Recipient selects the closest projection to a hashed message vector, deriving fₛ(x).
+1. **KeyGen:** Generate $x \in \mathbb{Z}_q^n$, derive $f_s(x)$, publish $P$
+2. **Encapsulation:** Recipient selects the closest projection to a hashed message vector, deriving $f_s(x)$
 
 ### DEM: AES-256-GCM
 
-- Apply HKDF to fₛ(x) and a salt to derive a 256-bit key.  
+- Apply HKDF to $f_s(x)$ and a salt to derive a 256-bit key.  
 - Encrypt the payload with AES-256-GCM using a 128-bit IV and 16-byte authentication tag.  
 
 This composition yields authenticated, quantum-resistant encryption.
