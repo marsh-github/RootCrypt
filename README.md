@@ -119,10 +119,11 @@ This composition yields authenticated, quantum-resistant encryption.
 
 7. ## Open Questions and Future Work
 
-- Formal reduction of NERP to Ring-LWE or a related problem  
-- Security analysis of fₛ as a one-way function  
-- Behavior under chosen-ciphertext attacks (CCA)  
-- Acceleration via NTT or polynomial-ring constructions  
+- Formal reduction of NERP to Ring-LWE or a related problem
+- Security analysis of fₛ as a one-way function
+- Behavior under chosen-ciphertext attacks (CCA)
+- Acceleration via NTT or polynomial-ring constructions
+- Revised NERP problem allowing for standard asymetric key cryptography (and therefore, E2EE)
 
 ---
 
